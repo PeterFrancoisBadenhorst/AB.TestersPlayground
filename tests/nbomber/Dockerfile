@@ -13,6 +13,5 @@ FROM mcr.microsoft.com/dotnet/runtime:10.0-preview
 WORKDIR /app
 COPY --from=build /app/out .
 
-CMD ["dotnet", "NBomberTests.dll"]
 
 ENTRYPOINT ["dotnet", "NBomberTests.dll"]
