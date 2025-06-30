@@ -4,9 +4,17 @@ EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/sdk:10.0-preview AS build
 WORKDIR /src
-COPY ["Api.csproj", "./"]
-RUN dotnet restore "Api.csproj"
+
+# Copy project files
+COPY ["api/Api.csproj", "api/"]
+COPY ["Testers.ServiceDefaults/Testers.ServiceDefaults.csproj", "Testers.ServiceDefaults/"]
+
+# Restore as distinct layers
+RUN dotnet restore "api/Api.csproj"
+
+# Copy everything else and build
 COPY . .
+WORKDIR "/src/api"
 RUN dotnet build "Api.csproj" -c Release -o /app/build
 
 FROM build AS publish
