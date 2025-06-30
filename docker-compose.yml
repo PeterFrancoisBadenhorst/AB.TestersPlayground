@@ -53,13 +53,13 @@ services:
       - frontend
       - backend
 
-  nbomber:
-    build: ./tests/nbomber
-    depends_on:
-      - api1
-      - api2
-    networks:
-      - backend
+  # nbomber:
+  #   build: ./tests/nbomber
+  #   depends_on:
+  #     - api1
+  #     - api2
+  #   networks:
+  #     - backend
 
   k6:
     build: ./tests/k6
