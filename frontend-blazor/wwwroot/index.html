@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>Testers Playground - Blazor Frontend</title>
-    <base href="/" />
+    <base href="/blazor/" />
     <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />
     <link href="css/app.css" rel="stylesheet" />
     <link rel="icon" type="image/png" href="favicon.png" />
@@ -22,6 +22,11 @@
         <a href="" class="reload">Reload</a>
         <a class="dismiss">🗙</a>
     </div>
+    <script>
+        // Set base href dynamically based on current path
+        const basePath = window.location.pathname.startsWith('/blazor/') ? '/blazor/' : '/';
+        document.querySelector('base').setAttribute('href', basePath);
+    </script>
     <script src="_framework/blazor.webassembly.js"></script>
 </body>
 
