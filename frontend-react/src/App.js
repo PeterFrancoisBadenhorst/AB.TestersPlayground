@@ -30,6 +30,8 @@ function App() {
     <div className="App">
       <header className="App-header">
         <h1>Testers Playground - React Frontend</h1>
+      </header>
+      <main className="App-main">
         <div className="content">
           <h2>API Connection Test</h2>
           <button onClick={fetchData} disabled={loading}>
