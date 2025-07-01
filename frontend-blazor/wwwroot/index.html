@@ -4,25 +4,70 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>NFT Shop - Blazor</title>
+    <title>Blazor Frontend - Testers Playground</title>
     <base href="/" />
     <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />
     <link href="css/app.css" rel="stylesheet" />
     <link rel="icon" type="image/png" href="favicon.png" />
-    <link href="frontend-blazor.styles.css" rel="stylesheet" />
 </head>
 
 <body>
     <div id="app">
-        <div class="loading">Loading...</div>
+        <div class="container mt-5">
+            <h1>Blazor Frontend</h1>
+            <p>This is the Blazor WebAssembly frontend for the Testers Playground.</p>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>API Connection Test</h5>
+                        </div>
+                        <div class="card-body">
+                            <button id="testApiBtn" class="btn btn-primary">Test API</button>
+                            <button id="testWeatherBtn" class="btn btn-secondary ms-2">Test Weather API</button>
+                            <div id="apiResult" class="mt-3"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Service Information</h5>
+                        </div>
+                        <div class="card-body">
+                            <ul>
+                                <li>API Gateway: <a href="/api/swagger" target="_blank">Swagger UI</a></li>
+                                <li>React Frontend: <a href="http://localhost:3000" target="_blank">React App</a></li>
+                                <li>Load Balancer: <a href="http://localhost" target="_blank">Nginx</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div id="blazor-error-ui">
-        An unhandled error has occurred.
-        <a href="" class="reload">Reload</a>
-        <a class="dismiss">🗙</a>
-    </div>
-    <script src="_framework/blazor.webassembly.js"></script>
+    <script>
+        document.getElementById('testApiBtn').addEventListener('click', async function() {
+            try {
+                const response = await fetch('/api/test');
+                const text = await response.text();
+                document.getElementById('apiResult').innerHTML = '<div class="alert alert-success">API Response: ' + text + '</div>';
+            } catch (error) {
+                document.getElementById('apiResult').innerHTML = '<div class="alert alert-danger">API Error: ' + error.message + '</div>';
+            }
+        });
+        
+        document.getElementById('testWeatherBtn').addEventListener('click', async function() {
+            try {
+                const response = await fetch('/api/weatherforecast');
+                const data = await response.json();
+                document.getElementById('apiResult').innerHTML = '<div class="alert alert-success"><strong>Weather Data:</strong><pre>' + JSON.stringify(data, null, 2) + '</pre></div>';
+            } catch (error) {
+                document.getElementById('apiResult').innerHTML = '<div class="alert alert-danger">Weather API Error: ' + error.message + '</div>';
+            }
+        });
+    </script>
 </body>
 
 </html>
