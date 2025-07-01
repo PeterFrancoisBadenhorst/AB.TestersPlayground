@@ -53,7 +53,7 @@ function App() {
             </ul>
           </div>
         </div>
-      </header>
+      </main>
     </div>
   );
 }

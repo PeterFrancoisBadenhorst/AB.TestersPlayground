@@ -1,0 +1,65 @@
+@page "/"
+
+<div class="container">
+    <h1>Testers Playground - Blazor Frontend</h1>
+    
+    <div class="content">
+        <h2>API Connection Test</h2>
+        <button class="btn btn-primary" @onclick="TestApiConnection" disabled="@loading">
+            @(loading ? "Loading..." : "Test API Connection")
+        </button>
+        
+        <div class="api-result mt-3">
+            <strong>API Response:</strong>
+            <pre>@(apiData ?? "No data yet")</pre>
+        </div>
+        
+        <div class="info-section mt-4">
+            <h3>Available Services</h3>
+            <ul>
+                <li>React Frontend - Port 3000</li>
+                <li>Blazor Frontend (this app) - Port 5003</li>
+                <li>API 1 - Port 5001</li>
+                <li>API 2 - Port 5002</li>
+                <li>Nginx Proxy - Port 80</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+@code {
+    private bool loading = false;
+    private string? apiData;
+    private HttpClient http = new HttpClient();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await TestApiConnection();
+    }
+
+    private async Task TestApiConnection()
+    {
+        loading = true;
+        try
+        {
+            // Try to fetch from API through nginx proxy
+            var response = await http.GetAsync("/api/test");
+            if (response.IsSuccessStatusCode)
+            {
+                apiData = await response.Content.ReadAsStringAsync();
+            }
+            else
+            {
+                apiData = "API not available";
+            }
+        }
+        catch (Exception ex)
+        {
+            apiData = $"Error connecting to API: {ex.Message}";
+        }
+        finally
+        {
+            loading = false;
+        }
+    }
+}
