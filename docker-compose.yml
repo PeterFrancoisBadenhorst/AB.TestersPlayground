@@ -35,9 +35,7 @@ services:
       - frontend
 
   frontend-blazor:
-    build:
-      context: .
-      dockerfile: frontend-blazor/Dockerfile
+    build: ./frontend-blazor
     ports:
       - "5003:80"
     networks:
