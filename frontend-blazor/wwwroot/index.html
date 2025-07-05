@@ -23,9 +23,9 @@
         <a class="dismiss">🗙</a>
     </div>
     <script>
-        // Set base href dynamically based on current path
-        const basePath = window.location.pathname.startsWith('/blazor/') ? '/blazor/' : '/';
-        document.querySelector('base').setAttribute('href', basePath);
+        // Ensure proper base href is set for Blazor routing
+        window.Blazor = window.Blazor || {};
+        window.Blazor.start = window.Blazor.start || function() {};
     </script>
     <script src="_framework/blazor.webassembly.js"></script>
 </body>

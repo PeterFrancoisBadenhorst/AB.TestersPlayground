@@ -1,4 +1,5 @@
 @page "/"
+@inject HttpClient Http
 
 <div class="container">
     <h1>Testers Playground - Blazor Frontend</h1>
@@ -30,7 +31,6 @@
 @code {
     private bool loading = false;
     private string? apiData;
-    private HttpClient http = new HttpClient();
 
     protected override async Task OnInitializedAsync()
     {
@@ -43,23 +43,24 @@
         try
         {
             // Try to fetch from API through nginx proxy
-            var response = await http.GetAsync("/api/test");
+            var response = await Http.GetAsync("api/test");
             if (response.IsSuccessStatusCode)
             {
                 apiData = await response.Content.ReadAsStringAsync();
             }
             else
             {
-                apiData = "API not available";
+                apiData = $"API not available - Status: {response.StatusCode}";
             }
         }
         catch (Exception ex)
         {
-            apiData = $"Error connecting to API: {ex.Message}";
+            apiData = $"Error connecting to API: {ex.GetType().Name} - {ex.Message}";
         }
         finally
         {
             loading = false;
+            StateHasChanged();
         }
     }
 }

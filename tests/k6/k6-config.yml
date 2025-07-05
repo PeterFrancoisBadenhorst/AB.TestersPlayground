@@ -1,0 +1,27 @@
+scenarios:
+  load_test:
+    executor: ramping-vus
+    stages:
+      - duration: 30s
+        target: 10
+      - duration: 1m
+        target: 10
+      - duration: 30s
+        target: 0
+  
+  spike_test:
+    executor: ramping-vus
+    startTime: 2m
+    stages:
+      - duration: 10s
+        target: 50
+      - duration: 30s
+        target: 50
+      - duration: 10s
+        target: 0
+
+thresholds:
+  http_req_duration:
+    - p(95)<500
+  http_req_failed:
+    - rate<0.1

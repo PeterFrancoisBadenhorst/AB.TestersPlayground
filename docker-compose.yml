@@ -72,14 +72,6 @@ services:
     networks:
       - backend
 
-  zap:
-    build: ./tests/zap
-    depends_on:
-      - api1
-      - api2
-    networks:
-      - backend
-
   db:
     image: postgres:15
     environment:
