@@ -29,3 +29,6 @@ TestResults/
 # Others
 .env
 .env.*
+.vs/TestersPlayground/CopilotIndices
+.vs/TestersPlayground/copilot-chat
+.vs/TestersPlayground/FileContentIndex

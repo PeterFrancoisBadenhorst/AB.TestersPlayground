@@ -1,0 +1,11 @@
+﻿namespace tests_frontend_blazer
+{
+    [TestClass]
+    public sealed class Test1
+    {
+        [TestMethod]
+        public void TestMethod1()
+        {
+        }
+    }
+}
