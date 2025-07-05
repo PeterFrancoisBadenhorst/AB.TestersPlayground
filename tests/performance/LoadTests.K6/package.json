@@ -1,0 +1,21 @@
+{
+  "name": "loadtests-k6",
+  "version": "1.0.0",
+  "description": "K6 load tests for Testers Playground API",
+  "scripts": {
+    "test": "k6 run scenarios/basic-load-test.js",
+    "test:api": "k6 run scenarios/api-performance-test.js",
+    "test:stress": "k6 run scenarios/stress-test.js"
+  },
+  "devDependencies": {
+    "k6": "^0.46.0"
+  },
+  "keywords": [
+    "k6",
+    "load-testing",
+    "performance",
+    "api-testing"
+  ],
+  "author": "Testers Playground Team",
+  "license": "MIT"
+}

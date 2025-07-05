@@ -1,0 +1,78 @@
+# OWASP ZAP Security Testing Configuration
+# This file contains configuration for automated security testing using ZAP
+
+## Basic Configuration
+zap_port: 8090
+zap_proxy: http://localhost:8090
+target_url: https://localhost:7243
+
+## Spider Configuration
+spider:
+  max_depth: 5
+  max_children: 10
+  threads: 5
+  
+## Active Scan Configuration  
+active_scan:
+  policy: Default Policy
+  threads: 5
+  strength: MEDIUM
+  threshold: MEDIUM
+  
+## Passive Scan Configuration
+passive_scan:
+  enabled: true
+  
+## Authentication Configuration
+authentication:
+  method: none  # Options: none, form, script, header
+  # For form authentication:
+  # login_url: /login
+  # username_field: username
+  # password_field: password
+  # username: testuser
+  # password: testpass
+  
+## Context Configuration
+context:
+  name: "Testers Playground API"
+  include_regex:
+    - "https://localhost:7243.*"
+  exclude_regex:
+    - ".*logout.*"
+    - ".*\.js$"
+    - ".*\.css$"
+    - ".*\.png$"
+    - ".*\.jpg$"
+    - ".*\.gif$"
+
+## Reporting
+reports:
+  formats:
+    - HTML
+    - XML
+    - JSON
+  output_dir: ./reports/security
+  
+## Alerting Thresholds
+alert_thresholds:
+  high: 0      # Fail if any high risk alerts
+  medium: 5    # Fail if more than 5 medium risk alerts
+  low: 20      # Fail if more than 20 low risk alerts
+  
+## Custom Rules
+rules:
+  # SQL Injection Detection
+  - id: 40018
+    enabled: true
+    threshold: MEDIUM
+    
+  # XSS Detection
+  - id: 40012
+    enabled: true
+    threshold: MEDIUM
+    
+  # Path Traversal
+  - id: 6
+    enabled: true
+    threshold: MEDIUM
